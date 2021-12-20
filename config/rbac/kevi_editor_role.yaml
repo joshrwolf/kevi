@@ -1,0 +1,24 @@
+# permissions for end users to edit kevis.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kevi-editor-role
+rules:
+- apiGroups:
+  - packages.cattle.io
+  resources:
+  - kevis
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - packages.cattle.io
+  resources:
+  - kevis/status
+  verbs:
+  - get

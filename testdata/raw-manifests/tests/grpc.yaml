@@ -1,0 +1,24 @@
+---
+# Source: podinfo/templates/tests/grpc.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: raw-podinfo-grpc-test-brqwj
+  labels:
+    helm.sh/chart: podinfo-6.0.3
+    app.kubernetes.io/name: raw-podinfo
+    app.kubernetes.io/version: "6.0.3"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    sidecar.istio.io/inject: "false"
+    linkerd.io/inject: disabled
+    appmesh.k8s.aws/sidecarInjectorWebhook: disabled
+spec:
+  containers:
+    - name: grpc-health-probe
+      image: stefanprodan/grpc_health_probe:v0.3.0
+      command: ['grpc_health_probe']
+      args:  ['-addr=raw-podinfo.default:9999']
+  restartPolicy: Never

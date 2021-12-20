@@ -1,0 +1,24 @@
+---
+# Source: podinfo/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: raw-podinfo
+  labels:
+    helm.sh/chart: podinfo-6.0.3
+    app.kubernetes.io/name: raw-podinfo
+    app.kubernetes.io/version: "6.0.3"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9898
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 9999
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+  selector:
+    app.kubernetes.io/name: raw-podinfo

@@ -1,0 +1,29 @@
+project_name: kevi
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
+env:
+  - vpkg=github.com/cattle.io/kevi/cli/version
+
+builds:
+  - main: main.go
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X {{ .Env.vpkg }}.GitVersion={{ .Version }} -X {{ .Env.vpkg }}.commit={{ .ShortCommit }} -X {{ .Env.vpkg }}.buildDate={{ .Date }}
+    env:
+      - CGO_ENABLED=0
+
+universal_binaries:
+  - replace: false
+
+changelog:
+  skip: false
+  use: git

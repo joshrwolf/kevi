@@ -1,0 +1,20 @@
+# permissions for end users to view kevis.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kevi-viewer-role
+rules:
+- apiGroups:
+  - packages.cattle.io
+  resources:
+  - kevis
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - packages.cattle.io
+  resources:
+  - kevis/status
+  verbs:
+  - get

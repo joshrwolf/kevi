@@ -1,0 +1,16 @@
+domain: cattle.io
+layout:
+- go.kubebuilder.io/v3
+projectName: kevi
+repo: cattle.io/kevi
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cattle.io
+  group: packages
+  kind: Kevi
+  path: cattle.io/kevi/api/v1alpha1
+  version: v1alpha1
+version: "3"

@@ -1,0 +1,6 @@
+apiVersion: packages.cattle.io/v1alpha1
+kind: Kevi
+metadata:
+  name: kevi-sample
+spec:
+  # TODO(user): Add fields here

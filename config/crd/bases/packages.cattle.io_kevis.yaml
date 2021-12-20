@@ -1,0 +1,82 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: kevis.packages.cattle.io
+spec:
+  group: packages.cattle.io
+  names:
+    kind: Kevi
+    listKind: KeviList
+    plural: kevis
+    singular: kevi
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Kevi is the Schema for the kevis API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: KeviSpec defines the desired state of Kevi
+            properties:
+              packages:
+                items:
+                  properties:
+                    chart:
+                      properties:
+                        name:
+                          type: string
+                        path:
+                          type: string
+                        repoUrl:
+                          type: string
+                        version:
+                          type: string
+                      type: object
+                    images:
+                      items:
+                        type: string
+                      type: array
+                    manifest:
+                      properties:
+                        path:
+                          type: string
+                      required:
+                      - path
+                      type: object
+                    name:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            description: KeviStatus defines the observed state of Kevi
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

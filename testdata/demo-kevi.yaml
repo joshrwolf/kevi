@@ -1,0 +1,31 @@
+apiVersion: packages.cattle.io/v1alpha1
+kind: Kevi
+metadata:
+  name: demo
+  namespace: default
+spec:
+  # Packages definition is designed to be flexible, catering to however you define manifests
+  packages:
+      # Path to local raw manifests
+    - name: raw-manifests
+      manifest:
+        path: testdata/raw-manifests/
+
+      # Path to local manifests constructed via Kustomize
+    - name: kustomize-manifests
+      manifest:
+        path: testdata/kustomize
+      # Specify extra list of images that may not be present in manifests but still vital to the deployment
+      images:
+        - alpine:latest
+
+      # Path to local chart archive (or directory with valid Chart.yaml)
+    - name: podinfo
+      chart:
+        path: testdata/podinfo-6.0.3.tgz
+
+      # Remote chart
+    - name: loki-chart
+      chart:
+        name: loki
+        repoUrl: https://grafana.github.io/helm-charts

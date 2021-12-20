@@ -1,0 +1,30 @@
+---
+# Source: podinfo/templates/tests/service.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: raw-podinfo-service-test-3s51n
+  labels:
+    helm.sh/chart: podinfo-6.0.3
+    app.kubernetes.io/name: raw-podinfo
+    app.kubernetes.io/version: "6.0.3"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    sidecar.istio.io/inject: "false"
+    linkerd.io/inject: disabled
+    appmesh.k8s.aws/sidecarInjectorWebhook: disabled
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl:7.69.0
+      command:
+        - sh
+        - -c
+        - |
+          curl -s ${PODINFO_SVC}/api/info | grep version
+      env:
+        - name: PODINFO_SVC
+          value: "raw-podinfo.default:9898"
+  restartPolicy: Never
